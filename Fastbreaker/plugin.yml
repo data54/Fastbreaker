@@ -1,0 +1,12 @@
+name: Fastbreaker
+main: me.data54.fastbreaker.Fastbreaker
+version: 1.0
+description: >
+             Makes breaking things faster
+commands:
+  fastbreaker:
+    description: Toggles Fastbreaker on/off
+    usage: fastbreaker
+  fb:
+    description: Toggles Fastbreaker on/off
+    usage: fb
