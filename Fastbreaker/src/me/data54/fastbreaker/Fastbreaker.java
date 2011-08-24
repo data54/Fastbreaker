@@ -30,16 +30,16 @@ public class Fastbreaker extends JavaPlugin {
 	private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 	//create hashmap debugee
 
+	public boolean re=Boolean.parseBoolean(Config.getProperty("Redstone"));
+	public boolean fe=Boolean.parseBoolean(Config.getProperty("Fences"));
+	public boolean oe=Boolean.parseBoolean(Config.getProperty("Obsidian"));
+	//fetch config settings
+
 	private void setupPermissions()
 	{
 		Plugin test = getServer().getPluginManager().getPlugin("Permissions");
 		if (Permissions == null){
 			if (test != null) {
-				/*if (!Boolean.parseBoolean(Config.getProperty("UsePermissions"))) {
-					logger.info("[Fastbreaker] Permission system disabled in config, using config.txt for users!");
-					this.UsePermissions = false;
-					return;
-				}*/
 				this.UsePermissions = true;
 				Permissions = ((Permissions)test).getHandler();
 				System.out.println("[Fastbreaker] Permissions system detected!");
@@ -61,21 +61,21 @@ public class Fastbreaker extends JavaPlugin {
 		if(this.UsePermissions){
 			return Permissions.has(p, "fastbreaker.redstone");
 		}
-		return Boolean.parseBoolean(Config.getProperty("Redstone"));
+		return re;
 	}
 	public boolean canUseFences(Player p)
 	{
 		if(this.UsePermissions){
-			return Permissions.has(p, "fastbreaker.fences");
+			return fe;
 		}
-		return Boolean.parseBoolean(Config.getProperty("Fences"));
+		return fe;
 	}
 	public boolean canUseObsidian(Player p)
 	{
 		if(this.UsePermissions){
-			return Permissions.has(p, "fastbreaker.obsidian");
+			return oe;
 		}
-		return Boolean.parseBoolean(Config.getProperty("Obsidian"));
+		return oe;
 	}
 
 

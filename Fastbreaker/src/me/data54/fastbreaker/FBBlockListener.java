@@ -16,16 +16,16 @@ public class FBBlockListener extends BlockListener {
 	public FBBlockListener(Fastbreaker instance){
 		plugin=instance;
 	}
-	Boolean re=Boolean.valueOf(Boolean.parseBoolean(Config.getProperty("Redstone")));
-	Boolean fe=Boolean.valueOf(Boolean.parseBoolean(Config.getProperty("Fences")));
-	Boolean oe=Boolean.valueOf(Boolean.parseBoolean(Config.getProperty("Obsidian")));
+	//Boolean re=plugin.re;
+	//Boolean fe=plugin.fe;
+	//Boolean oe=plugin.oe;
 	
 	
 	public void onBlockDamage(BlockDamageEvent event) {
-		if(plugin.penabled()){
+		/*if(plugin.penabled()){
 			re=false;
 			fe=false;
-			oe=false;}
+			oe=false;}*/
 		
 		if(plugin.enabled(event.getPlayer())){
 			Block block=event.getBlock();
@@ -33,7 +33,7 @@ public class FBBlockListener extends BlockListener {
 			Player p=event.getPlayer();
 			Location loc = new Location(block.getWorld(), block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
 
-			if((plugin.canUseRedstone(p)||re)&&(((block.getTypeId()==73)||(block.getTypeId()==74))&&(hand.equals(Material.DIAMOND_PICKAXE)))){
+			if((plugin.canUseRedstone(p))&&(((block.getTypeId()==73)||(block.getTypeId()==74))&&(hand.equals(Material.DIAMOND_PICKAXE)))){
 				block.setTypeId(0);
 				block.getWorld().dropItem(loc, new ItemStack(331, 1));
 				block.getWorld().dropItem(loc, new ItemStack(331, 1));
@@ -41,11 +41,11 @@ public class FBBlockListener extends BlockListener {
 				block.getWorld().dropItem(loc, new ItemStack(331, 1));
 				block.getWorld().dropItem(loc, new ItemStack(331, 1));
 			}//redstone
-			else if((plugin.canUseFences(p)||fe)&&((block.getTypeId()==85)&&(hand.equals(Material.DIAMOND_AXE)))){
+			else if((plugin.canUseFences(p))&&((block.getTypeId()==85)&&(hand.equals(Material.DIAMOND_AXE)))){
 				block.setTypeId(0);
 				block.getWorld().dropItem(loc, new ItemStack(85, 1));
 			}//fences
-			else if((plugin.canUseObsidian(p)||oe)&&((block.getTypeId()==49)&&(hand.equals(Material.DIAMOND_PICKAXE)))){
+			else if((plugin.canUseObsidian(p))&&((block.getTypeId()==49)&&(hand.equals(Material.DIAMOND_PICKAXE)))){
 				block.setTypeId(0);
 				block.getWorld().dropItem(loc, new ItemStack(49, 1));
 			}//obsidian
