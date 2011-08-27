@@ -26,13 +26,16 @@ public class Fastbreaker extends JavaPlugin {
 	private final FBBlockListener blockListener = new FBBlockListener(this);
 	//defined block listener
 	public final HashMap<Player, ArrayList<Block>> fbUsers= new HashMap();
+	public final HashMap<Player, ArrayList<Block>> bbUsers= new HashMap();
 	//creating hashmap
-	private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
+	
+	//private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 	//create hashmap debugee
 
 	public boolean re=Boolean.parseBoolean(Config.getProperty("Redstone"));
 	public boolean fe=Boolean.parseBoolean(Config.getProperty("Fences"));
 	public boolean oe=Boolean.parseBoolean(Config.getProperty("Obsidian"));
+	public boolean be=Boolean.parseBoolean(Config.getProperty("OPBedrock"));
 	//fetch config settings
 
 	private void setupPermissions()
@@ -49,13 +52,13 @@ public class Fastbreaker extends JavaPlugin {
 			}
 		}
 	}
-	public boolean canUseEnable(Player p)
+/*	public boolean canUseEnable(Player p)
 	{
 		if(this.UsePermissions){
 			return Permissions.has(p, "fastbreaker.enable");
 		}
 		return Boolean.parseBoolean(Config.getProperty(p.getName()));
-	}
+	}*/
 	public boolean canUseRedstone(Player p)
 	{
 		if(this.UsePermissions){
@@ -66,16 +69,28 @@ public class Fastbreaker extends JavaPlugin {
 	public boolean canUseFences(Player p)
 	{
 		if(this.UsePermissions){
-			return fe;
+			return Permissions.has(p, "fastbreaker.fences");
 		}
 		return fe;
 	}
 	public boolean canUseObsidian(Player p)
 	{
 		if(this.UsePermissions){
-			return oe;
+			return Permissions.has(p, "fastbreaker.obsidian");
 		}
 		return oe;
+	}
+	public boolean canUseBedrock(Player p)
+	{
+		if(this.UsePermissions){
+			return Permissions.has(p, "fastbreaker.bedrock");
+		}
+		else if(p.isOp()&&be)
+		{
+			return be;}
+		else{
+			return false;
+		}
 	}
 
 
@@ -96,20 +111,29 @@ public class Fastbreaker extends JavaPlugin {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+		Player p=(Player) sender;
 		if((commandLabel.equalsIgnoreCase("fastbreaker")||commandLabel.equalsIgnoreCase("fb"))){
-			if(canUseEnable((Player) sender)){
-				toggleVision((Player) sender);
+			if(canUseRedstone(p)||canUseFences(p)||canUseObsidian(p)){
+				toggleFB(p);
 			}
 			else{
-				Player player=(Player)sender;
-				player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
+				p.sendMessage(ChatColor.RED + "You do not have permission to use this command");
+
+			}		
+		}
+		else if(commandLabel.equalsIgnoreCase("bb")){
+			if(canUseBedrock(p)){
+				toggleBB(p);
+			}
+			else{
+				p.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 
 			}		
 		}
 		return true;
 	}
 
-
+/*
 	public boolean isDebugging(final Player player) {
 		if(debugees.containsKey(player)){
 			return debugees.get(player);
@@ -120,21 +144,29 @@ public class Fastbreaker extends JavaPlugin {
 	public void setDebuggin(final Player player, final boolean value){
 		debugees.put(player, value);
 	}
-	public boolean penabled(){
-		return UsePermissions;
-	}
+	*/
 	//method enabled to check if player in hash map
 
-	public boolean enabled(Player player){
-		return this.fbUsers.containsKey(player);
+	public boolean enabled(Player player,HashMap h){
+		return h.containsKey(player);
 	}
-	public void toggleVision(Player player){
-		if(enabled(player)){
+	
+	public void toggleFB(Player player){
+		if(enabled(player,fbUsers)){
 			this.fbUsers.remove(player);
 			player.sendMessage("Fastbreaker disabled");
 		} else{
 			this.fbUsers.put(player,null);
 			player.sendMessage("Fastbreaker enabled");
+		}
+	}
+	public void toggleBB(Player player){
+		if(enabled(player,bbUsers)){
+			this.bbUsers.remove(player);
+			player.sendMessage("Bedrock Breaker disabled");
+		} else{
+			this.bbUsers.put(player,null);
+			player.sendMessage("Bedrock Breaker enabled");
 		}
 	}
 }

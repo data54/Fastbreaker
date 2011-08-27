@@ -10,3 +10,7 @@ commands:
   fb:
     description: Toggles Fastbreaker on/off
     usage: fb
+  bb:
+    description: Toggles Bedrock Breaker on/off
+    usage: bb
+    

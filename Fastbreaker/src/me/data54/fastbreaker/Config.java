@@ -24,6 +24,7 @@ public class Config
         out.println("Redstone=true");
         out.println("Fences=true");
         out.println("Obsidian=false");
+        out.println("OPBedrock=false");
         out.println("#If you don't use permissions, add Usernames that are allowed to use fastbreaker:");
         out.println("User1=true");
         out.println("User2=true");
