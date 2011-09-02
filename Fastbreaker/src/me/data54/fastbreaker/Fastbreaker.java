@@ -111,7 +111,7 @@ public class Fastbreaker extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player p=(Player) sender;
 		if((commandLabel.equalsIgnoreCase("fastbreaker")||commandLabel.equalsIgnoreCase("fb"))){
-			if(canUseRedstone(p)||canUseFences(p)||canUseObsidian(p)){
+			if(canUseRedstone(p)||canUseFences(p)||canUseObsidian(p)||canUseStairs(p)){
 				toggleFB(p);
 			}
 			else{
