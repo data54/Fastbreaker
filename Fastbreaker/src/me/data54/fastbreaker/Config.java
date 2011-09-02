@@ -23,6 +23,7 @@ public class Config
         out.println("#Breakable Blocks:");
         out.println("Redstone=true");
         out.println("Fences=true");
+        out.println("Stairs=true");
         out.println("Obsidian=false");
         out.println("OPBedrock=false");
         out.println("#If you don't use permissions, add Usernames that are allowed to use fastbreaker:");

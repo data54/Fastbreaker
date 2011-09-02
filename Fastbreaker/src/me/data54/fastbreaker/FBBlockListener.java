@@ -17,13 +17,10 @@ public class FBBlockListener extends BlockListener {
 	public FBBlockListener(Fastbreaker instance){
 		plugin=instance;
 	}
-	//Boolean re=plugin.re;
-	//Boolean fe=plugin.fe;
-	//Boolean oe=plugin.oe;
-
 
 	public void onBlockDamage(BlockDamageEvent event) {
 		Block block=event.getBlock();
+		int Bid=block.getTypeId();
 		Material hand=event.getPlayer().getItemInHand().getType();
 		Player pl=event.getPlayer();
 		Location loc = new Location(block.getWorld(), block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
@@ -35,7 +32,7 @@ public class FBBlockListener extends BlockListener {
 			//Location loc = new Location(block.getWorld(), block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
 
 			if(hand.equals(Material.DIAMOND_PICKAXE)){
-				if((plugin.canUseRedstone(pl))&&((block.getTypeId()==73)||(block.getTypeId()==74))){
+				if((plugin.canUseRedstone(pl))&&((Bid==73)||(Bid==74))){
 					block.setTypeId(0);
 					block.getWorld().dropItem(loc, new ItemStack(331, 1));
 					block.getWorld().dropItem(loc, new ItemStack(331, 1));
@@ -43,38 +40,24 @@ public class FBBlockListener extends BlockListener {
 					block.getWorld().dropItem(loc, new ItemStack(331, 1));
 					block.getWorld().dropItem(loc, new ItemStack(331, 1));
 				}//redstone
-				else if((plugin.canUseObsidian(pl))&&(block.getTypeId()==49)){
+				else if((plugin.canUseStairs(pl))&&((Bid==53)||(Bid==67))){
+					block.setTypeId(0);
+					block.getWorld().dropItem(loc, new ItemStack(Bid, 1));
+				}//stairs
+				else if((plugin.canUseObsidian(pl))&&(Bid==49)){
 					block.setTypeId(0);
 					block.getWorld().dropItem(loc, new ItemStack(49, 1));
 				}//obsidian
 			}//things with diamond pickaxe
 			else if(hand.equals(Material.DIAMOND_AXE)){
-				if((plugin.canUseFences(pl))&&(block.getTypeId()==85)){
+				if((plugin.canUseFences(pl))&&(Bid==85)){
 					block.setTypeId(0);
 					block.getWorld().dropItem(loc, new ItemStack(85, 1));
 				}//Fences
 			}//things with diamond axe
-
-			/*
-			if((plugin.canUseRedstone(p))&&(((block.getTypeId()==73)||(block.getTypeId()==74))&&(hand.equals(Material.DIAMOND_PICKAXE)))){
-				block.setTypeId(0);
-				block.getWorld().dropItem(loc, new ItemStack(331, 1));
-				block.getWorld().dropItem(loc, new ItemStack(331, 1));
-				block.getWorld().dropItem(loc, new ItemStack(331, 1));
-				block.getWorld().dropItem(loc, new ItemStack(331, 1));
-				block.getWorld().dropItem(loc, new ItemStack(331, 1));
-			}//redstone
-			else if((plugin.canUseFences(p))&&((block.getTypeId()==85)&&(hand.equals(Material.DIAMOND_AXE)))){
-				block.setTypeId(0);
-				block.getWorld().dropItem(loc, new ItemStack(85, 1));
-			}//fences
-			else if((plugin.canUseObsidian(p))&&((block.getTypeId()==49)&&(hand.equals(Material.DIAMOND_PICKAXE)))){
-				block.setTypeId(0);
-				block.getWorld().dropItem(loc, new ItemStack(49, 1));
-			}//obsidian */
 		}
-		else if(plugin.enabled(pl,plugin.bbUsers)){
-			if((plugin.canUseBedrock(pl))&&(block.getTypeId()==7)){
+		if(plugin.enabled(pl,plugin.bbUsers)){
+			if((plugin.canUseBedrock(pl))&&(Bid==7)){
 				block.setTypeId(0);
 				block.getWorld().dropItem(loc, new ItemStack(7, 1));
 			}//bedrock breaker

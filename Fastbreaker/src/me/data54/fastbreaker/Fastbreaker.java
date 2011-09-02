@@ -28,12 +28,11 @@ public class Fastbreaker extends JavaPlugin {
 	public final HashMap<Player, ArrayList<Block>> fbUsers= new HashMap();
 	public final HashMap<Player, ArrayList<Block>> bbUsers= new HashMap();
 	//creating hashmap
-	
-	//private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
-	//create hashmap debugee
+
 
 	public boolean re=Boolean.parseBoolean(Config.getProperty("Redstone"));
 	public boolean fe=Boolean.parseBoolean(Config.getProperty("Fences"));
+	public boolean se=Boolean.parseBoolean(Config.getProperty("Stairs"));
 	public boolean oe=Boolean.parseBoolean(Config.getProperty("Obsidian"));
 	public boolean be=Boolean.parseBoolean(Config.getProperty("OPBedrock"));
 	//fetch config settings
@@ -52,13 +51,6 @@ public class Fastbreaker extends JavaPlugin {
 			}
 		}
 	}
-/*	public boolean canUseEnable(Player p)
-	{
-		if(this.UsePermissions){
-			return Permissions.has(p, "fastbreaker.enable");
-		}
-		return Boolean.parseBoolean(Config.getProperty(p.getName()));
-	}*/
 	public boolean canUseRedstone(Player p)
 	{
 		if(this.UsePermissions){
@@ -72,6 +64,13 @@ public class Fastbreaker extends JavaPlugin {
 			return Permissions.has(p, "fastbreaker.fences");
 		}
 		return fe;
+	}
+	public boolean canUseStairs(Player p)
+	{
+		if(this.UsePermissions){
+			return Permissions.has(p, "fastbreaker.stairs");
+		}
+		return se;
 	}
 	public boolean canUseObsidian(Player p)
 	{
@@ -92,7 +91,6 @@ public class Fastbreaker extends JavaPlugin {
 			return false;
 		}
 	}
-
 
 
 	@Override
@@ -133,24 +131,10 @@ public class Fastbreaker extends JavaPlugin {
 		return true;
 	}
 
-/*
-	public boolean isDebugging(final Player player) {
-		if(debugees.containsKey(player)){
-			return debugees.get(player);
-		}else{
-			return false;
-		}
-	}
-	public void setDebuggin(final Player player, final boolean value){
-		debugees.put(player, value);
-	}
-	*/
-	//method enabled to check if player in hash map
-
 	public boolean enabled(Player player,HashMap h){
 		return h.containsKey(player);
 	}
-	
+
 	public void toggleFB(Player player){
 		if(enabled(player,fbUsers)){
 			this.fbUsers.remove(player);
